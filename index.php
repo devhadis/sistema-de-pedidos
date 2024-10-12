@@ -1,15 +1,15 @@
 <?php
-// Iniciar a sessão
+
 session_start();
 
-// Verificar se o usuário está logado
+
 if (!isset($_SESSION['username'])) {
-    // Se não estiver, redirecionar para a página de login
+  
     header("Location: login.php");
     exit();
 }
 
-// Acesso permitido para usuários logados
+
 echo "<!DOCTYPE html>
 <html lang='pt-BR'>
 <head>

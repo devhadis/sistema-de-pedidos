@@ -1,5 +1,5 @@
 <?php
-// Conexão com o banco de dados
+
 $servername = "";
 $username = "";
 $password = "";
@@ -11,7 +11,7 @@ if ($conn->connect_error) {
     die("Falt " . $conn->connect_error);
 }
 
-// Obter balanço diário
+
 $data_atual = date('Y-m-d');
 $sql_balanco = "SELECT total_vendas, total_arrecadado FROM balanco_diario WHERE data = '$data_atual'";
 $result_balanco = $conn->query($sql_balanco);
@@ -25,13 +25,13 @@ if ($result_balanco->num_rows > 0) {
     $total_arrecadado = $row_balanco['total_arrecadado'];
 }
 
-// Obter detalhes das vendas do dia
+
 $sql_vendas = "SELECT p.id, p.forma_pagamento, p.valor_total, p.horario_pagamento 
                FROM pedidos p 
                WHERE DATE(p.horario_pagamento) = '$data_atual'";
 $result_vendas = $conn->query($sql_vendas);
 
-// Exibir o balanço
+
 echo "<!DOCTYPE html>
 <html lang='pt-BR'>
 <head>
@@ -105,7 +105,7 @@ echo "<!DOCTYPE html>
             </thead>
             <tbody>";
 
-// Exibir detalhes das vendas do dia
+
 if ($result_vendas->num_rows > 0) {
     while ($row_venda = $result_vendas->fetch_assoc()) {
         echo "<tr>
@@ -116,7 +116,7 @@ if ($result_vendas->num_rows > 0) {
               </tr>";
     }
     
-    // Soma do total arrecadado e número de vendas
+    
     $sql_total_vendas = "SELECT SUM(valor_total) AS total_arrecadado, COUNT(id) AS total_vendas FROM pedidos WHERE DATE(horario_pagamento) = '$data_atual'";
     $result_total_vendas = $conn->query($sql_total_vendas);
     
